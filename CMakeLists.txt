@@ -58,7 +58,7 @@ message(STATUS "wxWidgets file: ${wxWidgets_USE_FILE}")
 set(USUAL_FILES annotation_canvas.cpp function_graph.cpp scroll_overview.cpp wxApp.cpp wxMain.cpp
     gui/gui_palette.cpp
     utils/utils.cpp utils/utils_wx.cpp utils/logger.cpp
-    8051/disassembler.cpp 8051/disassembly.cpp 8051/function.cpp 8051/instruction.cpp 8051/switch_statement.cpp)
+    8051/disassembler.cpp 8051/disassembly.cpp 8051/function.cpp 8051/instruction.cpp 8051/switch_statement.cpp 8051/module.cpp)
 if(WIN32)
 	add_executable(
 		${PROJECT_NAME}
