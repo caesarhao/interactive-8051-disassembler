@@ -27,263 +27,263 @@ namespace disas8051 {
 // table created by Collin Kidder
 Instruct8051 OpCodes[] =
 {
-//   name  len  arg1  arg1  jmp   cond-jmp
-    {"NOP", 1, NONE, NONE, false, false},    // 0x00
-    {"AJMP ", 2, ADDR11, NONE, true, false},    // 0x01
-    {"LJMP ", 3, ADDR16, NONE, true, false},    // 0x02
-    {"RR A", 1, NONE, NONE, false, false},    // 0x03
-    {"INC A", 1, NONE, NONE, false, false},    // 0x04
-    {"INC ", 2, DIRECT, NONE, false, false},    // 0x05
-    {"INC @R0", 1, NONE, NONE, false, false},    // 0x06
-    {"INC @R1", 1, NONE, NONE, false, false},    // 0x07
-    {"INC R0", 1, NONE, NONE, false, false},    // 0x08
-    {"INC R1", 1, NONE, NONE, false, false},    // 0x09
-    {"INC R2", 1, NONE, NONE, false, false},    // 0x0A
-    {"INC R3", 1, NONE, NONE, false, false},    // 0x0B
-    {"INC R4", 1, NONE, NONE, false, false},    // 0x0C
-    {"INC R5", 1, NONE, NONE, false, false},    // 0x0D
-    {"INC R6", 1, NONE, NONE, false, false},    // 0x0E
-    {"INC R7", 1, NONE, NONE, false, false},    // 0x0F
-    {"JBC ", 3, BIT, OFFSET, false, true},    // 0x10
-    {"ACALL ", 2, ADDR11, NONE, false, true},    // 0x11
-    {"LCALL ", 3, ADDR16, NONE, false, true},    // 0x12
-    {"RRC A", 1, NONE, NONE, false, false},    // 0x13
-    {"DEC A", 1, NONE, NONE, false, false},    // 0x14
-    {"DEC ", 2, DIRECT, NONE, false, false},    // 0x15
-    {"DEC @R0", 1, NONE, NONE, false, false},    // 0x16
-    {"DEC @R1", 1, NONE, NONE, false, false},    // 0x17
-    {"DEC R0", 1, NONE, NONE, false, false},    // 0x18
-    {"DEC R1", 1, NONE, NONE, false, false},    // 0x19
-    {"DEC R2", 1, NONE, NONE, false, false},    // 0x1A
-    {"DEC R3", 1, NONE, NONE, false, false},    // 0x1B
-    {"DEC R4", 1, NONE, NONE, false, false},    // 0x1C
-    {"DEC R5", 1, NONE, NONE, false, false},    // 0x1D
-    {"DEC R6", 1, NONE, NONE, false, false},    // 0x1E
-    {"DEC R7", 1, NONE, NONE, false, false},   // 0x1F
-    {"JB ", 3, BIT, OFFSET, false, true},    // 0x20
-    {"AJMP ", 2, ADDR11, NONE, true, false},    // 0x21
-    {"RET", 1, NONE, NONE, false, false},    // 0x22
-    {"RL A", 1, NONE, NONE, false, false},        // 0x23
-    {"ADD A, ", 2, IMMED, NONE, false, false},    // 0x24
-    {"ADD A, ", 2, DIRECT, NONE, false, false},    // 0x25
-    {"ADD A, @R0", 1, NONE, NONE, false, false},    // 0x26
-    {"ADD A, @R1", 1, NONE, NONE, false, false},    // 0x27
-    {"ADD A, R0", 1, NONE, NONE, false, false},    // 0x28
-    {"ADD A, R1", 1, NONE, NONE, false, false},    // 0x29
-    {"ADD A, R2", 1, NONE, NONE, false, false},    // 0x2A
-    {"ADD A, R3", 1, NONE, NONE, false, false},    // 0x2B
-    {"ADD A, R4", 1, NONE, NONE, false, false},    // 0x2C
-    {"ADD A, R5", 1, NONE, NONE, false, false},    // 0x2D
-    {"ADD A, R6", 1, NONE, NONE, false, false},    // 0x2E
-    {"ADD A, R7", 1, NONE, NONE, false, false},    // 0x2F
-    {"JNB ", 3, BIT, OFFSET, false, true},    // 0x30
-    {"ACALL ", 2, ADDR11, NONE, false, true},    // 0x31
-    {"RETI", 1, NONE, NONE, false, false},    // 0x32
-    {"RLC A", 1, NONE, NONE, false, false},    // 0x33
-    {"ADDC A, ", 2, IMMED, NONE, false, false},    // 0x34
-    {"ADDC A, ", 2, DIRECT, NONE, false, false},    // 0x35
-    {"ADDC A, @R0", 1, NONE, NONE, false, false},    // 0x36
-    {"ADDC A, @R1", 1, NONE, NONE, false, false},    // 0x37
-    {"ADDC A, R0", 1, NONE, NONE, false, false},    // 0x38
-    {"ADDC A, R1", 1, NONE, NONE, false, false},    // 0x39
-    {"ADDC A, R2", 1, NONE, NONE, false, false},    // 0x3A
-    {"ADDC A, R3", 1, NONE, NONE, false, false},    // 0x3B
-    {"ADDC A, R4", 1, NONE, NONE, false, false},    // 0x3C
-    {"ADDC A, R5", 1, NONE, NONE, false, false},    // 0x3D
-    {"ADDC A, R6", 1, NONE, NONE, false, false},    // 0x3E
-    {"ADDC A, R7", 1, NONE, NONE, false, false},    // 0x3F
-    {"JC ", 2, OFFSET, NONE, false, true},    // 0x40
-    {"AJMP ", 2, ADDR11, NONE, true, false},    // 0x41
-    {"ORL ", 2, DIRECT, A, false, false},    // 0x42
-    {"ORL ", 3, DIRECT, IMMED, false, false},    // 0x43
-    {"ORL A, ", 2, IMMED, NONE, false, false},    // 0x44
-    {"ORL A, ", 2, DIRECT, NONE, false, false},    // 0x45
-    {"ORL A, @R0", 1, NONE, NONE, false, false},    // 0x46
-    {"ORL A, @R1", 1, NONE, NONE, false, false},    // 0x47
-    {"ORL A, R0", 1, NONE, NONE, false, false},    // 0x48
-    {"ORL A, R1", 1, NONE, NONE, false, false},    // 0x49
-    {"ORL A, R2", 1, NONE, NONE, false, false},    // 0x4A
-    {"ORL A, R3", 1, NONE, NONE, false, false},    // 0x4B
-    {"ORL A, R4", 1, NONE, NONE, false, false},    // 0x4C
-    {"ORL A, R5", 1, NONE, NONE, false, false},    // 0x4D
-    {"ORL A, R6", 1, NONE, NONE, false, false},    // 0x4E
-    {"ORL A, R7", 1, NONE, NONE, false, false},    // 0x4F
-    {"JNC ", 2, OFFSET, NONE, false, true},    // 0x50    
-    {"ACALL ", 2, ADDR11, NONE, false, true},    // 0x51
-    {"ANL ", 2, DIRECT, A, false, false},    // 0x52
-    {"ANL ", 3, DIRECT, IMMED, false, false},    // 0x53
-    {"ANL A, ", 2, IMMED, NONE, false, false},    // 0x54
-    {"ANL A, ", 2, DIRECT, NONE, false, false},    // 0x55
-    {"ANL A, @R0", 1, NONE, NONE, false, false},    // 0x56
-    {"ANL A, @R1", 1, NONE, NONE, false, false},    // 0x57
-    {"ANL A, R0", 1, NONE, NONE, false, false},    // 0x58
-    {"ANL A, R1", 1, NONE, NONE, false, false},    // 0x59
-    {"ANL A, R2", 1, NONE, NONE, false, false},    // 0x5A
-    {"ANL A, R3", 1, NONE, NONE, false, false},    // 0x5B
-    {"ANL A, R4", 1, NONE, NONE, false, false},    // 0x5C
-    {"ANL A, R5", 1, NONE, NONE, false, false},    // 0x5D
-    {"ANL A, R6", 1, NONE, NONE, false, false},    // 0x5E
-    {"ANL A, R7", 1, NONE, NONE, false, false},    // 0x5F
-    {"JZ ", 2, OFFSET, NONE, false, true},    // 0x60
-    {"AJMP ", 2, ADDR11, NONE, true, false},    // 0x61
-    {"XRL ", 2, DIRECT, A, false, false},    // 0x62
-    {"XRL ", 3, DIRECT, IMMED, false, false},    // 0x63
-    {"XRL A, ", 2, IMMED, NONE, false, false},    // 0x64
-    {"XRL A, ", 2, DIRECT, NONE, false, false},    // 0x65
-    {"XRL A, @R0", 1, NONE, NONE, false, false},    // 0x66
-    {"XRL A, @R1", 1, NONE, NONE, false, false},    // 0x67
-    {"XRL A, R0", 1, NONE, NONE, false, false},    // 0x68
-    {"XRL A, R1", 1, NONE, NONE, false, false},    // 0x69
-    {"XRL A, R2", 1, NONE, NONE, false, false},    // 0x6A
-    {"XRL A, R3", 1, NONE, NONE, false, false},    // 0x6B
-    {"XRL A, R4", 1, NONE, NONE, false, false},    // 0x6C
-    {"XRL A, R5", 1, NONE, NONE, false, false},    // 0x6D
-    {"XRL A, R6", 1, NONE, NONE, false, false},    // 0x6E
-    {"XRL A, R7", 1, NONE, NONE, false, false},    // 0x6F
-    {"JNZ ", 2, OFFSET, NONE, false, true},    // 0x70
-    {"ACALL ", 2, ADDR11, NONE, false, true},    // 0x71
-    {"ORL C, ", 2, BIT, NONE, false, false},    // 0x72
-    {"JMP @A+DPTR", 1, NONE, NONE, false, false},    // 0x73 //yes, this really is a jump instr. but this program can't decode DPTR so don't follow it.
-    {"MOV A, ", 2, IMMED, NONE, false, false},    // 0x74
-    {"MOV ", 3, DIRECT, IMMED, false, false},    // 0x75
-    {"MOV @R0, ", 2, IMMED, NONE, false, false},    // 0x76
-    {"MOV @R1, ", 2, IMMED, NONE, false, false},    // 0x77
-    {"MOV R0, ", 2, IMMED, NONE, false, false},    // 0x78
-    {"MOV R1, ", 2, IMMED, NONE, false, false},    // 0x79
-    {"MOV R2, ", 2, IMMED, NONE, false, false},    // 0x7A
-    {"MOV R3, ", 2, IMMED, NONE, false, false},    // 0x7B
-    {"MOV R4, ", 2, IMMED, NONE, false, false},    // 0x7C
-    {"MOV R5, ", 2, IMMED, NONE, false, false},    // 0x7D
-    {"MOV R6, ", 2, IMMED, NONE, false, false},    // 0x7E
-    {"MOV R7, ", 2, IMMED, NONE, false, false},    // 0x7F
-    {"SJMP ", 2, OFFSET, NONE, true, false},
-    {"AJMP ", 2, ADDR11, NONE, true, false},
-    {"ANL C, ", 2, BIT, NONE, false, false},
-    {"MOVC A, @A+PC", 1, NONE, NONE, false, false},
-    {"DIV AB", 1, NONE, NONE, false, false},
-    {"MOV ", 3, DIRECT, DIRECT, false, false},  //85
-    {"MOV ", 2, DIRECT, IR0, false, false},
-    {"MOV ", 2, DIRECT, IR1, false, false},
-    {"MOV ", 2, DIRECT, R0, false, false},
-    {"MOV ", 2, DIRECT, R1, false, false},
-    {"MOV ", 2, DIRECT, R2, false, false},
-    {"MOV ", 2, DIRECT, R3, false, false},
-    {"MOV ", 2, DIRECT, R4, false, false},
-    {"MOV ", 2, DIRECT, R5, false, false},
-    {"MOV ", 2, DIRECT, R6, false, false},
-    {"MOV ", 2, DIRECT, R7, false, false},      //8F
-    {"MOV DPTR, ", 3, IMMED16, NONE, false, false},
-    {"ACALL ", 2, ADDR11, NONE, false, true},
-    {"MOV ", 2, BIT, C, false, false},
-    {"MOVC A, @A+DPTR", 1, NONE, NONE, false, false},
-    {"SUBB A, ", 2, IMMED, NONE, false, false},
-    {"SUBB A, ", 2, DIRECT, NONE, false, false},
-    {"SUBB A, @R0", 1, NONE, NONE, false, false},
-    {"SUBB A, @R1", 1, NONE, NONE, false, false},
-    {"SUBB A, R0", 1, NONE, NONE, false, false},
-    {"SUBB A, R1", 1, NONE, NONE, false, false},
-    {"SUBB A, R2", 1, NONE, NONE, false, false},
-    {"SUBB A, R3", 1, NONE, NONE, false, false},
-    {"SUBB A, R4", 1, NONE, NONE, false, false},
-    {"SUBB A, R5", 1, NONE, NONE, false, false},
-    {"SUBB A, R6", 1, NONE, NONE, false, false},
-    {"SUBB A, R7", 1, NONE, NONE, false, false}, //9F
-    {"ORL C, ", 2, BIT, NONE, false, false},
-    {"AJMP ", 2, ADDR11, NONE, true, false},
-    {"MOV C, ", 2, BIT, NONE, false, false},
-    {"INC DPTR", 1, NONE, NONE, false, false},
-    {"MUL AB", 1, NONE, NONE, false, false},
-    {"RESERVED", 1, NONE, NONE, false, false},
-    {"MOV @R0, ", 2, DIRECT, NONE, false, false},
-    {"MOV @R1, ", 2, DIRECT, NONE, false, false},
-    {"MOV R0, ", 2, DIRECT, NONE, false, false},
-    {"MOV R1, ", 2, DIRECT, NONE, false, false},
-    {"MOV R2, ", 2, DIRECT, NONE, false, false},
-    {"MOV R3, ", 2, DIRECT, NONE, false, false},
-    {"MOV R4, ", 2, DIRECT, NONE, false, false},
-    {"MOV R5, ", 2, DIRECT, NONE, false, false},
-    {"MOV R6, ", 2, DIRECT, NONE, false, false},
-    {"MOV R7, ", 2, DIRECT, NONE, false, false},  //AF
-    {"ANL C, ", 2, BIT, NONE, false, false},
-    {"ACALL ", 2, ADDR11, NONE, false, true},
-    {"CPL ", 2, BIT, NONE, false, false},
-    {"CPL C", 1, NONE, NONE, false, false},
-    {"CJNE A, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE A, ", 3, DIRECT, OFFSET, false, true},
-    {"CJNE @R0, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE @R1, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R0, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R1, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R2, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R3, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R4, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R5, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R6, ", 3, IMMED, OFFSET, false, true},
-    {"CJNE R7, ", 3, IMMED, OFFSET, false, true},  //BF
-    {"PUSH ", 2, DIRECT, NONE, false, false},
-    {"AJMP ", 2, ADDR11, NONE, true, false},
-    {"CLR ", 2, BIT, NONE, false, false},
-    {"CLR C", 1, NONE, NONE, false, false},
-    {"SWAP A", 1, NONE, NONE, false, false},
-    {"XCH A, ", 2, DIRECT, NONE, false, false},
-    {"XCH A, @R0", 1, NONE, NONE, false, false},
-    {"XCH A, @R1", 1, NONE, NONE, false, false},
-    {"XCH A, R0", 1, NONE, NONE, false, false},
-    {"XCH A, R1", 1, NONE, NONE, false, false},
-    {"XCH A, R2", 1, NONE, NONE, false, false},
-    {"XCH A, R3", 1, NONE, NONE, false, false},
-    {"XCH A, R4", 1, NONE, NONE, false, false},
-    {"XCH A, R5", 1, NONE, NONE, false, false},
-    {"XCH A, R6", 1, NONE, NONE, false, false},
-    {"XCH A, R7", 1, NONE, NONE, false, false},    //CF
-    {"POP ", 2, DIRECT, NONE, false, false},
-    {"ACALL ", 2, ADDR11, NONE, false, true},
-    {"SETB ", 2, BIT, NONE, false, false},
-    {"SETB C", 1, NONE, NONE, false, false},
-    {"DA A", 1, NONE, NONE, false, false},
-    {"DJNZ ", 3, DIRECT, OFFSET, false, true},
-    {"XCHD A, @R0", 1, NONE, NONE, false, false},
-    {"XCHD A, @R1", 1, NONE, NONE, false, false},
-    {"DJNZ R0, ", 2, OFFSET, NONE, false, true},
-    {"DJNZ R1, ", 2, OFFSET, NONE, false, true},
-    {"DJNZ R2, ", 2, OFFSET, NONE, false, true},
-    {"DJNZ R3, ", 2, OFFSET, NONE, false, true},
-    {"DJNZ R4, ", 2, OFFSET, NONE, false, true},
-    {"DJNZ R5, ", 2, OFFSET, NONE, false, true},
-    {"DJNZ R6, ", 2, OFFSET, NONE, false, true},
-    {"DJNZ R7, ", 2, OFFSET, NONE, false, true},    //DF
-    {"MOVX A, @DPTR", 1, NONE, NONE, false, false},
-    {"AJMP ", 2, ADDR11, NONE, true, false},
-    {"MOVX, A, @R0", 1, NONE, NONE, false, false},
-    {"MOVX, A, @R1", 1, NONE, NONE, false, false},
-    {"CLR A", 1, NONE, NONE, false, false},
-    {"MOV A, ", 2, DIRECT, NONE, false, false},
-    {"MOV A, @R0", 1, NONE, NONE, false, false},
-    {"MOV A, @R1", 1, NONE, NONE, false, false},
-    {"MOV A, R0", 1, NONE, NONE, false, false},
-    {"MOV A, R1", 1, NONE, NONE, false, false},
-    {"MOV A, R2", 1, NONE, NONE, false, false},
-    {"MOV A, R3", 1, NONE, NONE, false, false},
-    {"MOV A, R4", 1, NONE, NONE, false, false},
-    {"MOV A, R5", 1, NONE, NONE, false, false},
-    {"MOV A, R6", 1, NONE, NONE, false, false},
-    {"MOV A, R7", 1, NONE, NONE, false, false},      //EF
-    {"MOVX @DPTR, A", 1, NONE, NONE, false, false},
-    {"ACALL ", 2, ADDR11, NONE, false, true},
-    {"MOVX @R0, A", 1, NONE, NONE, false, false},
-    {"MOVX @R1, A", 1, NONE, NONE, false, false},
-    {"CPL A", 1, NONE, NONE, false, false},
-    {"MOV ", 2, DIRECT, A, false, false},
-    {"MOV @R0, A", 1, NONE, NONE, false, false},
-    {"MOV @R1, A", 1, NONE, NONE, false, false},
-    {"MOV R0, A", 1, NONE, NONE, false, false},
-    {"MOV R1, A", 1, NONE, NONE, false, false},
-    {"MOV R2, A", 1, NONE, NONE, false, false},
-    {"MOV R3, A", 1, NONE, NONE, false, false},
-    {"MOV R4, A", 1, NONE, NONE, false, false},
-    {"MOV R5, A", 1, NONE, NONE, false, false},
-    {"MOV R6, A", 1, NONE, NONE, false, false},
-    {"MOV R7, A", 1, NONE, NONE, false, false}    //FF
+//   name,  bytes  arg1,  arg2,  jmp,   cond-jmp
+    {"NOP", 1, NONE, NONE, false, false},           //  0x00
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0x01
+    {"LJMP ", 3, ADDR16, NONE, true, false},        //  0x02
+    {"RR A", 1, NONE, NONE, false, false},          //  0x03
+    {"INC A", 1, NONE, NONE, false, false},         //  0x04
+    {"INC ", 2, DIRECT, NONE, false, false},        //  0x05
+    {"INC @R0", 1, NONE, NONE, false, false},       //  0x06
+    {"INC @R1", 1, NONE, NONE, false, false},       //  0x07
+    {"INC R0", 1, NONE, NONE, false, false},        //  0x08
+    {"INC R1", 1, NONE, NONE, false, false},        //  0x09
+    {"INC R2", 1, NONE, NONE, false, false},        //  0x0A
+    {"INC R3", 1, NONE, NONE, false, false},        //  0x0B
+    {"INC R4", 1, NONE, NONE, false, false},        //  0x0C
+    {"INC R5", 1, NONE, NONE, false, false},        //  0x0D
+    {"INC R6", 1, NONE, NONE, false, false},        //  0x0E
+    {"INC R7", 1, NONE, NONE, false, false},        //  0x0F
+    {"JBC ", 3, BIT, OFFSET, false, true},          //  0x10
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0x11
+    {"LCALL ", 3, ADDR16, NONE, false, true},       //  0x12
+    {"RRC A", 1, NONE, NONE, false, false},         //  0x13
+    {"DEC A", 1, NONE, NONE, false, false},         //  0x14
+    {"DEC ", 2, DIRECT, NONE, false, false},        //  0x15
+    {"DEC @R0", 1, NONE, NONE, false, false},       //  0x16
+    {"DEC @R1", 1, NONE, NONE, false, false},       //  0x17
+    {"DEC R0", 1, NONE, NONE, false, false},        //  0x18
+    {"DEC R1", 1, NONE, NONE, false, false},        //  0x19
+    {"DEC R2", 1, NONE, NONE, false, false},        //  0x1A
+    {"DEC R3", 1, NONE, NONE, false, false},        //  0x1B
+    {"DEC R4", 1, NONE, NONE, false, false},        //  0x1C
+    {"DEC R5", 1, NONE, NONE, false, false},        //  0x1D
+    {"DEC R6", 1, NONE, NONE, false, false},        //  0x1E
+    {"DEC R7", 1, NONE, NONE, false, false},        //  0x1F
+    {"JB ", 3, BIT, OFFSET, false, true},           //  0x20
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0x21
+    {"RET", 1, NONE, NONE, false, false},           //  0x22
+    {"RL A", 1, NONE, NONE, false, false},          //  0x23
+    {"ADD A, ", 2, IMMED, NONE, false, false},      //  0x24
+    {"ADD A, ", 2, DIRECT, NONE, false, false},     //  0x25
+    {"ADD A, @R0", 1, NONE, NONE, false, false},    //  0x26
+    {"ADD A, @R1", 1, NONE, NONE, false, false},    //  0x27
+    {"ADD A, R0", 1, NONE, NONE, false, false},     //  0x28
+    {"ADD A, R1", 1, NONE, NONE, false, false},     //  0x29
+    {"ADD A, R2", 1, NONE, NONE, false, false},     //  0x2A
+    {"ADD A, R3", 1, NONE, NONE, false, false},     //  0x2B
+    {"ADD A, R4", 1, NONE, NONE, false, false},     //  0x2C
+    {"ADD A, R5", 1, NONE, NONE, false, false},     //  0x2D
+    {"ADD A, R6", 1, NONE, NONE, false, false},     //  0x2E
+    {"ADD A, R7", 1, NONE, NONE, false, false},     //  0x2F
+    {"JNB ", 3, BIT, OFFSET, false, true},          //  0x30
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0x31
+    {"RETI", 1, NONE, NONE, false, false},          //  0x32
+    {"RLC A", 1, NONE, NONE, false, false},         //  0x33
+    {"ADDC A, ", 2, IMMED, NONE, false, false},     //  0x34
+    {"ADDC A, ", 2, DIRECT, NONE, false, false},    //  0x35
+    {"ADDC A, @R0", 1, NONE, NONE, false, false},   //  0x36
+    {"ADDC A, @R1", 1, NONE, NONE, false, false},   //  0x37
+    {"ADDC A, R0", 1, NONE, NONE, false, false},    //  0x38
+    {"ADDC A, R1", 1, NONE, NONE, false, false},    //  0x39
+    {"ADDC A, R2", 1, NONE, NONE, false, false},    //  0x3A
+    {"ADDC A, R3", 1, NONE, NONE, false, false},    //  0x3B
+    {"ADDC A, R4", 1, NONE, NONE, false, false},    //  0x3C
+    {"ADDC A, R5", 1, NONE, NONE, false, false},    //  0x3D
+    {"ADDC A, R6", 1, NONE, NONE, false, false},    //  0x3E
+    {"ADDC A, R7", 1, NONE, NONE, false, false},    //  0x3F
+    {"JC ", 2, OFFSET, NONE, false, true},          //  0x40
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0x41
+    {"ORL ", 2, DIRECT, A, false, false},           //  0x42
+    {"ORL ", 3, DIRECT, IMMED, false, false},       //  0x43
+    {"ORL A, ", 2, IMMED, NONE, false, false},      //  0x44
+    {"ORL A, ", 2, DIRECT, NONE, false, false},     //  0x45
+    {"ORL A, @R0", 1, NONE, NONE, false, false},    //  0x46
+    {"ORL A, @R1", 1, NONE, NONE, false, false},    //  0x47
+    {"ORL A, R0", 1, NONE, NONE, false, false},     //  0x48
+    {"ORL A, R1", 1, NONE, NONE, false, false},     //  0x49
+    {"ORL A, R2", 1, NONE, NONE, false, false},     //  0x4A
+    {"ORL A, R3", 1, NONE, NONE, false, false},     //  0x4B
+    {"ORL A, R4", 1, NONE, NONE, false, false},     //  0x4C
+    {"ORL A, R5", 1, NONE, NONE, false, false},     //  0x4D
+    {"ORL A, R6", 1, NONE, NONE, false, false},     //  0x4E
+    {"ORL A, R7", 1, NONE, NONE, false, false},     //  0x4F
+    {"JNC ", 2, OFFSET, NONE, false, true},         //  0x50    
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0x51
+    {"ANL ", 2, DIRECT, A, false, false},           //  0x52
+    {"ANL ", 3, DIRECT, IMMED, false, false},       //  0x53
+    {"ANL A, ", 2, IMMED, NONE, false, false},      //  0x54
+    {"ANL A, ", 2, DIRECT, NONE, false, false},     //  0x55
+    {"ANL A, @R0", 1, NONE, NONE, false, false},    //  0x56
+    {"ANL A, @R1", 1, NONE, NONE, false, false},    //  0x57
+    {"ANL A, R0", 1, NONE, NONE, false, false},     //  0x58
+    {"ANL A, R1", 1, NONE, NONE, false, false},     //  0x59
+    {"ANL A, R2", 1, NONE, NONE, false, false},     //  0x5A
+    {"ANL A, R3", 1, NONE, NONE, false, false},     //  0x5B
+    {"ANL A, R4", 1, NONE, NONE, false, false},     //  0x5C
+    {"ANL A, R5", 1, NONE, NONE, false, false},     //  0x5D
+    {"ANL A, R6", 1, NONE, NONE, false, false},     //  0x5E
+    {"ANL A, R7", 1, NONE, NONE, false, false},     //  0x5F
+    {"JZ ", 2, OFFSET, NONE, false, true},          //  0x60
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0x61
+    {"XRL ", 2, DIRECT, A, false, false},           //  0x62
+    {"XRL ", 3, DIRECT, IMMED, false, false},       //  0x63
+    {"XRL A, ", 2, IMMED, NONE, false, false},      //  0x64
+    {"XRL A, ", 2, DIRECT, NONE, false, false},     //  0x65
+    {"XRL A, @R0", 1, NONE, NONE, false, false},    //  0x66
+    {"XRL A, @R1", 1, NONE, NONE, false, false},    //  0x67
+    {"XRL A, R0", 1, NONE, NONE, false, false},     //  0x68
+    {"XRL A, R1", 1, NONE, NONE, false, false},     //  0x69
+    {"XRL A, R2", 1, NONE, NONE, false, false},     //  0x6A
+    {"XRL A, R3", 1, NONE, NONE, false, false},     //  0x6B
+    {"XRL A, R4", 1, NONE, NONE, false, false},     //  0x6C
+    {"XRL A, R5", 1, NONE, NONE, false, false},     //  0x6D
+    {"XRL A, R6", 1, NONE, NONE, false, false},     //  0x6E
+    {"XRL A, R7", 1, NONE, NONE, false, false},     //  0x6F
+    {"JNZ ", 2, OFFSET, NONE, false, true},         //  0x70
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0x71
+    {"ORL C, ", 2, BIT, NONE, false, false},        //  0x72
+    {"JMP @A+DPTR", 1, NONE, NONE, false, false},   //  0x73 //yes, this really is a jump instr. but this program can't decode DPTR so don't follow it.
+    {"MOV A, ", 2, IMMED, NONE, false, false},      //  0x74
+    {"MOV ", 3, DIRECT, IMMED, false, false},       //  0x75
+    {"MOV @R0, ", 2, IMMED, NONE, false, false},    //  0x76
+    {"MOV @R1, ", 2, IMMED, NONE, false, false},    //  0x77
+    {"MOV R0, ", 2, IMMED, NONE, false, false},     //  0x78
+    {"MOV R1, ", 2, IMMED, NONE, false, false},     //  0x79
+    {"MOV R2, ", 2, IMMED, NONE, false, false},     //  0x7A
+    {"MOV R3, ", 2, IMMED, NONE, false, false},     //  0x7B
+    {"MOV R4, ", 2, IMMED, NONE, false, false},     //  0x7C
+    {"MOV R5, ", 2, IMMED, NONE, false, false},     //  0x7D
+    {"MOV R6, ", 2, IMMED, NONE, false, false},     //  0x7E
+    {"MOV R7, ", 2, IMMED, NONE, false, false},     //  0x7F
+    {"SJMP ", 2, OFFSET, NONE, true, false},        //  0x80
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0x81
+    {"ANL C, ", 2, BIT, NONE, false, false},        //  0x82
+    {"MOVC A, @A+PC", 1, NONE, NONE, false, false}, //  0x83
+    {"DIV AB", 1, NONE, NONE, false, false},        //  0x84
+    {"MOV ", 3, DIRECT, DIRECT, false, false},      //  0x85
+    {"MOV ", 2, DIRECT, IR0, false, false},         //  0x86
+    {"MOV ", 2, DIRECT, IR1, false, false},         //  0x87
+    {"MOV ", 2, DIRECT, R0, false, false},          //  0x88
+    {"MOV ", 2, DIRECT, R1, false, false},          //  0x89
+    {"MOV ", 2, DIRECT, R2, false, false},          //  0x8A
+    {"MOV ", 2, DIRECT, R3, false, false},          //  0x8B
+    {"MOV ", 2, DIRECT, R4, false, false},          //  0x8C
+    {"MOV ", 2, DIRECT, R5, false, false},          //  0x8D
+    {"MOV ", 2, DIRECT, R6, false, false},          //  0x8E
+    {"MOV ", 2, DIRECT, R7, false, false},          //  0x8F
+    {"MOV DPTR, ", 3, IMMED16, NONE, false, false}, //  0x90
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0x91
+    {"MOV ", 2, BIT, C, false, false},              //  0x92
+    {"MOVC A, @A+DPTR", 1, NONE, NONE, false, false},  //  0x93
+    {"SUBB A, ", 2, IMMED, NONE, false, false},     //  0x94
+    {"SUBB A, ", 2, DIRECT, NONE, false, false},    //  0x95
+    {"SUBB A, @R0", 1, NONE, NONE, false, false},   //  0x96
+    {"SUBB A, @R1", 1, NONE, NONE, false, false},   //  0x97
+    {"SUBB A, R0", 1, NONE, NONE, false, false},    //  0x98
+    {"SUBB A, R1", 1, NONE, NONE, false, false},    //  0x99
+    {"SUBB A, R2", 1, NONE, NONE, false, false},    //  0x9A
+    {"SUBB A, R3", 1, NONE, NONE, false, false},    //  0x9B
+    {"SUBB A, R4", 1, NONE, NONE, false, false},    //  0x9C
+    {"SUBB A, R5", 1, NONE, NONE, false, false},    //  0x9D
+    {"SUBB A, R6", 1, NONE, NONE, false, false},    //  0x9E
+    {"SUBB A, R7", 1, NONE, NONE, false, false},    //  0x9F
+    {"ORL C, ", 2, BIT, NONE, false, false},        //  0xA0
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0xA1
+    {"MOV C, ", 2, BIT, NONE, false, false},        //  0xA2
+    {"INC DPTR", 1, NONE, NONE, false, false},      //  0xA3
+    {"MUL AB", 1, NONE, NONE, false, false},        //  0xA4
+    {"RESERVED", 1, NONE, NONE, false, false},      //  0xA5
+    {"MOV @R0, ", 2, DIRECT, NONE, false, false},   //  0xA6
+    {"MOV @R1, ", 2, DIRECT, NONE, false, false},   //  0xA7
+    {"MOV R0, ", 2, DIRECT, NONE, false, false},    //  0xA8
+    {"MOV R1, ", 2, DIRECT, NONE, false, false},    //  0xA9
+    {"MOV R2, ", 2, DIRECT, NONE, false, false},    //  0xAA
+    {"MOV R3, ", 2, DIRECT, NONE, false, false},    //  0xAB
+    {"MOV R4, ", 2, DIRECT, NONE, false, false},    //  0xAC
+    {"MOV R5, ", 2, DIRECT, NONE, false, false},    //  0xAD
+    {"MOV R6, ", 2, DIRECT, NONE, false, false},    //  0xAE
+    {"MOV R7, ", 2, DIRECT, NONE, false, false},    //  0xAF
+    {"ANL C, ", 2, BIT, NONE, false, false},        //  0xB0
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0xB1
+    {"CPL ", 2, BIT, NONE, false, false},           //  0xB2
+    {"CPL C", 1, NONE, NONE, false, false},         //  0xB3
+    {"CJNE A, ", 3, IMMED, OFFSET, false, true},    //  0xB4
+    {"CJNE A, ", 3, DIRECT, OFFSET, false, true},   //  0xB5
+    {"CJNE @R0, ", 3, IMMED, OFFSET, false, true},  //  0xB6
+    {"CJNE @R1, ", 3, IMMED, OFFSET, false, true},  //  0xB7
+    {"CJNE R0, ", 3, IMMED, OFFSET, false, true},   //  0xB8
+    {"CJNE R1, ", 3, IMMED, OFFSET, false, true},   //  0xB9
+    {"CJNE R2, ", 3, IMMED, OFFSET, false, true},   //  0xBA
+    {"CJNE R3, ", 3, IMMED, OFFSET, false, true},   //  0xBB
+    {"CJNE R4, ", 3, IMMED, OFFSET, false, true},   //  0xBC
+    {"CJNE R5, ", 3, IMMED, OFFSET, false, true},   //  0xBD
+    {"CJNE R6, ", 3, IMMED, OFFSET, false, true},   //  0xBE
+    {"CJNE R7, ", 3, IMMED, OFFSET, false, true},   //  0xBF
+    {"PUSH ", 2, DIRECT, NONE, false, false},       //  0xC0
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0xC1
+    {"CLR ", 2, BIT, NONE, false, false},           //  0xC2
+    {"CLR C", 1, NONE, NONE, false, false},         //  0xC3
+    {"SWAP A", 1, NONE, NONE, false, false},        //  0xC4
+    {"XCH A, ", 2, DIRECT, NONE, false, false},     //  0xC5
+    {"XCH A, @R0", 1, NONE, NONE, false, false},    //  0xC6
+    {"XCH A, @R1", 1, NONE, NONE, false, false},    //  0xC7
+    {"XCH A, R0", 1, NONE, NONE, false, false},     //  0xC8
+    {"XCH A, R1", 1, NONE, NONE, false, false},     //  0xC9
+    {"XCH A, R2", 1, NONE, NONE, false, false},     //  0xCA
+    {"XCH A, R3", 1, NONE, NONE, false, false},     //  0xCB
+    {"XCH A, R4", 1, NONE, NONE, false, false},     //  0xCC
+    {"XCH A, R5", 1, NONE, NONE, false, false},     //  0xCD
+    {"XCH A, R6", 1, NONE, NONE, false, false},     //  0xCE
+    {"XCH A, R7", 1, NONE, NONE, false, false},     //  0xCF
+    {"POP ", 2, DIRECT, NONE, false, false},        //  0xD0
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0xD1
+    {"SETB ", 2, BIT, NONE, false, false},          //  0xD2
+    {"SETB C", 1, NONE, NONE, false, false},        //  0xD3
+    {"DA A", 1, NONE, NONE, false, false},          //  0xD4
+    {"DJNZ ", 3, DIRECT, OFFSET, false, true},      //  0xD5
+    {"XCHD A, @R0", 1, NONE, NONE, false, false},   //  0xD6
+    {"XCHD A, @R1", 1, NONE, NONE, false, false},   //  0xD7
+    {"DJNZ R0, ", 2, OFFSET, NONE, false, true},    //  0xD8
+    {"DJNZ R1, ", 2, OFFSET, NONE, false, true},    //  0xD9
+    {"DJNZ R2, ", 2, OFFSET, NONE, false, true},    //  0xDA
+    {"DJNZ R3, ", 2, OFFSET, NONE, false, true},    //  0xDB
+    {"DJNZ R4, ", 2, OFFSET, NONE, false, true},    //  0xDC
+    {"DJNZ R5, ", 2, OFFSET, NONE, false, true},    //  0xDD
+    {"DJNZ R6, ", 2, OFFSET, NONE, false, true},    //  0xDE
+    {"DJNZ R7, ", 2, OFFSET, NONE, false, true},    //  0xDF
+    {"MOVX A, @DPTR", 1, NONE, NONE, false, false}, //  0xE0
+    {"AJMP ", 2, ADDR11, NONE, true, false},        //  0xE1
+    {"MOVX, A, @R0", 1, NONE, NONE, false, false},  //  0xE2
+    {"MOVX, A, @R1", 1, NONE, NONE, false, false},  //  0xE3
+    {"CLR A", 1, NONE, NONE, false, false},         //  0xE4
+    {"MOV A, ", 2, DIRECT, NONE, false, false},     //  0xE5
+    {"MOV A, @R0", 1, NONE, NONE, false, false},    //  0xE6
+    {"MOV A, @R1", 1, NONE, NONE, false, false},    //  0xE7
+    {"MOV A, R0", 1, NONE, NONE, false, false},     //  0xE8
+    {"MOV A, R1", 1, NONE, NONE, false, false},     //  0xE9
+    {"MOV A, R2", 1, NONE, NONE, false, false},     //  0xEA
+    {"MOV A, R3", 1, NONE, NONE, false, false},     //  0xEB
+    {"MOV A, R4", 1, NONE, NONE, false, false},     //  0xEC
+    {"MOV A, R5", 1, NONE, NONE, false, false},     //  0xED
+    {"MOV A, R6", 1, NONE, NONE, false, false},     //  0xEE
+    {"MOV A, R7", 1, NONE, NONE, false, false},     //  0xEF
+    {"MOVX @DPTR, A", 1, NONE, NONE, false, false}, //  0xF0
+    {"ACALL ", 2, ADDR11, NONE, false, true},       //  0xF1
+    {"MOVX @R0, A", 1, NONE, NONE, false, false},   //  0xF2
+    {"MOVX @R1, A", 1, NONE, NONE, false, false},   //  0xF3
+    {"CPL A", 1, NONE, NONE, false, false},         //  0xF4
+    {"MOV ", 2, DIRECT, A, false, false},           //  0xF5
+    {"MOV @R0, A", 1, NONE, NONE, false, false},    //  0xF6
+    {"MOV @R1, A", 1, NONE, NONE, false, false},    //  0xF7
+    {"MOV R0, A", 1, NONE, NONE, false, false},     //  0xF8
+    {"MOV R1, A", 1, NONE, NONE, false, false},     //  0xF9
+    {"MOV R2, A", 1, NONE, NONE, false, false},     //  0xFA
+    {"MOV R3, A", 1, NONE, NONE, false, false},     //  0xFB
+    {"MOV R4, A", 1, NONE, NONE, false, false},     //  0xFC
+    {"MOV R5, A", 1, NONE, NONE, false, false},     //  0xFD
+    {"MOV R6, A", 1, NONE, NONE, false, false},     //  0xFE
+    {"MOV R7, A", 1, NONE, NONE, false, false}      //  0xFF
 };
 
 //Starting at 0x80 and going through 0xFF these are the SFR's for a ENE KB9012

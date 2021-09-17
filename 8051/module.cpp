@@ -1,33 +1,33 @@
 #include "module.hpp"
 namespace disas8051 {
     Module KB930_modules[] = {
-        {"Flash",   0x0000,     OxEBFF},
-        {"XRAM",    0xEC00,     OxFBFF},
-        {"GPIO",    0xFC00,     OxFC7F},
-        {"KBC",     0xFC80,     OxFC8F},
-        {"ESB",     0xFC90,     OxFC9F},
-        {"IKB",     0xFCA0,     OxFCAF},
-        {"RSV0",    0xFCB0,     OxFCBF},
-        {"RSV1",    0xFCC0,     OxFCCF},
-        {"PECI",    0xFCD0,     OxFCDF},
-        {"RSV2",    0xFCE0,     OxFCEF},
-        {"OWM",     0xFCF0,     OxFCFF},
-        {"RSV3",    0xFD00,     OxFDFF},
-        {"PWM",     0xFE00,     OxFE1F},
-        {"FAN",     0xFE20,     OxFE4F},
-        {"GPT",     0xFE50,     OxFE6F},
-        {"SDI",     0xFE70,     OxFE7F},
-        {"WDT",     0xFE80,     OxFE8F},
-        {"LPC",     0xFE90,     OxFE9F},
-        {"XBI",     0xFEA0,     OxFEBF},
-        {"CIR",     0xFEC0,     OxFECF},
-        {"RSV4",    0xFED0,     OxFEDF},
-        {"PS2",     0xFEE0,     OxFEFF},
-        {"EC",      0xFF00,     OxFF2F},
-        {"GPWU",    0xFF30,     OxFF7F},
-        {"SMBus",   0xFF80,     OxFFBF},
-        {"RSV5",    0xFFC0,     OxFFCF},
-        {"RSV6",    0xFFD0,     OxFFFF}
+        {"Flash",   0x0000,     OxEBFF},    // 0
+        {"XRAM",    0xEC00,     OxFBFF},    // 1
+        {"GPIO",    0xFC00,     OxFC7F},    // 2
+        {"KBC",     0xFC80,     OxFC8F},    // 3
+        {"ESB",     0xFC90,     OxFC9F},    // 4
+        {"IKB",     0xFCA0,     OxFCAF},    // 5
+        {"RSV0",    0xFCB0,     OxFCBF},    // 6
+        {"RSV1",    0xFCC0,     OxFCCF},    // 7
+        {"PECI",    0xFCD0,     OxFCDF},    // 8
+        {"RSV2",    0xFCE0,     OxFCEF},    // 9
+        {"OWM",     0xFCF0,     OxFCFF},    // 10
+        {"RSV3",    0xFD00,     OxFDFF},    // 11
+        {"PWM",     0xFE00,     OxFE1F},    // 12
+        {"FAN",     0xFE20,     OxFE4F},    // 13
+        {"GPT",     0xFE50,     OxFE6F},    // 14
+        {"SDI",     0xFE70,     OxFE7F},    // 15
+        {"WDT",     0xFE80,     OxFE8F},    // 16
+        {"LPC",     0xFE90,     OxFE9F},    // 17
+        {"XBI",     0xFEA0,     OxFEBF},    // 18
+        {"CIR",     0xFEC0,     OxFECF},    // 19
+        {"RSV4",    0xFED0,     OxFEDF},    // 20
+        {"PS2",     0xFEE0,     OxFEFF},    // 21
+        {"EC",      0xFF00,     OxFF2F},    // 22
+        {"GPWU",    0xFF30,     OxFF7F},    // 23
+        {"SMBus",   0xFF80,     OxFFBF},    // 24
+        {"RSV5",    0xFFC0,     OxFFCF},    // 25
+        {"RSV6",    0xFFD0,     OxFFFF}     // 26
 
     };
     const char *GPIO_Reg[]={
