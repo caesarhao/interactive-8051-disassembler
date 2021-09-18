@@ -30,7 +30,7 @@ namespace disas8051 {
         {"RSV6",    0xFFD0,     OxFFFF}     // 26, 48
 
     };
-    const char *GPIO_Reg[]={
+    const char *GPIO_Reg[]={     // Bank : 0xFC
         "GPIOFS00","GPIOFS08","GPIOFS10","GPIOFS18","GPIOFS20","GPIOFS28","GPIOFS30","GPIOFS38",    // 0x00 - 0x07
         "GPIOFS40","GPIOFS48","GPIOFS50","GPIOFS58","RSV0C","RSV0D","RSV0E","RSV0F",    // 0x08 - 0x0F
         "GPIOOE00","GPIOOE08","GPIOOE10","GPIOOE18","GPIOOE20","GPIOOE28","GPIOOE30","GPIOOE38",    // 0x10 - 0x17
@@ -45,10 +45,27 @@ namespace disas8051 {
         "GPIOOD40","GPIOOD48","GPIOOD50","GPIOOD58","RSV5C","RSV5D","RSV5E","RSV5F",    // 0x58 - 0x5F
         "GPIOIE00","GPIOIE08","GPIOIE10","GPIOIE18","GPIOIE20","GPIOIE28","GPIOIE30","GPIOIE38",    // 0x60 - 0x67
         "GPIOIE40","GPIOIE48","GPIOIE50","GPIOEE58","GPXAIE00","GPXAIE08","RSV6E","GPXDIE00",    // 0x68 - 0x6F
-        "GPIO_MISC","GPIO_MISC2","GPIO_TMR","GPX_MISC","PADING74","PADING75","PADING76","PADING77", // 0x70 - 0x77
-        "PADING78","PADING79","PADING7A","PADING7B","PADING7C","PADING7D","PADING7E","PADING7F"     // 0x78 - 0x7F
+        "GPIO_MISC","GPIO_MISC2","GPIO_TMR","GPX_MISC" // 0x70 - 0x73
     };
-
+    const char *KBC_Reg[]={     // Bank : 0xFC
+        "KBCCB","KBCCFG","KBCIF","KBCHWEN","KBCCMD","KBCDAT","KBCSTS","RSV87",     // 0x80 - 0x87
+        "RSV88","RSV89","KBCDATR"     // 0x88 - 0x8A
+    };
+    const char *ESB_Reg[]={     // Bank : 0xFC
+        "ESBCFG","ESBCS","ESBINTE","ESBCA","ESBCD","ESBRD","ESBED","ESBINT",    // 0x90 - 0x97
+        "ESBCAS"    // 0x98 - 0x98
+    };
+    const char *WDT_Reg[]={     // Bank : 0xFE
+        "WDTCFG","WDTPF","WDT","LEDCFG","TMR_CFG","TMR_MATCH","TMR_V1","TMR_V2"    // 0x80 - 0x87
+    };
+    const char *EC_Reg[]={     // Bank : 0xFF
+        "ECHV","ECFV","ECHA","SCICFG","ECCFG","SCIE0","SCIE1","SCIE3",    // 0x00 - 0x07
+        "ECIF0","ECIF1","ECIF3","SCID","PMUCFG","CLKCFG","EXTIOW","PLLCFG",    // 0x08 - 0x0F
+        "DAC0","DAC1","DAC2","DAC3","PXCFG","ADDAEN","PLLFRH","PLLFRL",    // 0x10 - 0x17
+        "ADCTRL","ADCDAT","ECIF","ECDAT","ECCMD","ECSTS","CHIPID_H","CHIPID_L",    // 0x18 - 0x1F
+        "ECMISC","EXTIOR","EDIF","EDIAS","EDIID","RSV25","RSV26","VCCSR",    // 0x20 - 0x27
+        "PFCSR","IOSCCR","CRY32CR"    // 0x28 - 0x2A
+    };
     int get_KB930_ModuleIndex(uint16_t address){
         for(int i = 0; i < KB930_MODULES_NUM; i++){
            if (address >= KB930_modules[i].start_addr && address <= KB930_modules[i].end_addr){
