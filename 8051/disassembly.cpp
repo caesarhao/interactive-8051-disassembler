@@ -20,6 +20,7 @@
 #include "../utils/utils.hpp"
 #include "disassembly.hpp"
 #include "disassembler.hpp"
+#include "module.hpp"
 
 namespace disas8051 {
 
@@ -355,6 +356,9 @@ struct RegisterArea
     bool contains(int address) {
         return (address >= addressFirst) && (address <= addressLast);
     }
+    bool isEC(int address){
+        return (address >= KB930_modules[EC_E].start_addr) && (address <= KB930_modules[EC_E].end_addr); 
+    }
 };
 static RegisterArea registerAreas[] = {
     { 0xfc00, 0xfc0f, 16, "GPIO function sel" },
@@ -365,31 +369,30 @@ static RegisterArea registerAreas[] = {
     { 0xfc50, 0xfc5f, 16, "GPIO open drain output enable" },
     { 0xfc60, 0xfc6f, 16, "GPIO input enable" },
     { 0xfc70, 0xfc7f, 16, "GPIO various" },
-    { 0xfc80, 0xfc8f, 16,  "Keyboard Controller" },
-    { 0xfc90, 0xfc9f, 16,  "ENE serial bus controller" },
-    { 0xfca0, 0xfcaf, 16,  "Internal keyboard matrix" },
-    { 0xfcb0, 0xfcbf, 16,  "for ESB?" },
-    { 0xfcc0, 0xfccf, 16,  "for ESB?" },
+    { 0xfc80, 0xfc8f, 16,  "KBC : Keyboard Controller" },
+    { 0xfc90, 0xfc9f, 16,  "ESB : ENE serial bus controller" },
+    { 0xfca0, 0xfcaf, 16,  "IKB : Internal keyboard matrix" },
+    { 0xfcb0, 0xfcbf, 16,  "RSV : for ESB?" },
+    { 0xfcc0, 0xfccf, 16,  "RSV : for ESB?" },
     { 0xfcd0, 0xfcdf, 16,  "PECI controller" },
     { 0xfce0, 0xfcef, 16,  "Reserved" },
-    { 0xfcf0, 0xfcff, 16,  "One Wire Master" },
-    { 0xfd00, 0xfdff, 256, "for ESB?" },
-    { 0xfe00, 0xfe1f, 32,  "Pulse width modulation" },
-    { 0xfe20, 0xfe4f, 48,  "Fan controller" },
-    { 0xfe50, 0xfe6f, 32,  "General purpose timer" },
-    { 0xfe70, 0xfe7f, 16,  "SPI host/device interface"},
-    { 0xfe80, 0xfe8f, 16,  "Watchdog timer" },
-    { 0xfe90, 0xfe9f, 16,  "Low pin count interface" },
-    { 0xfea0, 0xfebf, 32,  "X-bus interface" },
-    { 0xfec0, 0xfecf, 16,  "Consumer IR controller" },
+    { 0xfcf0, 0xfcff, 16,  "OWM : One Wire Master" },
+    { 0xfd00, 0xfdff, 256, "RSV : for ESB?" },
+    { 0xfe00, 0xfe1f, 32,  "PWM : Pulse width modulation" },
+    { 0xfe20, 0xfe4f, 48,  "FAN : Fan controller" },
+    { 0xfe50, 0xfe6f, 32,  "GPT : General purpose timer" },
+    { 0xfe70, 0xfe7f, 16,  "SDI : SPI host/device interface"},
+    { 0xfe80, 0xfe8f, 16,  "WDT : Watchdog timer" },
+    { 0xfe90, 0xfe9f, 16,  "LPC : Low pin count interface" },
+    { 0xfea0, 0xfebf, 32,  "XBI : X-bus interface" },
+    { 0xfec0, 0xfecf, 16,  "CIR : Consumer IR controller" },
     { 0xfed0, 0xfedf, 16,  "General Waveform Generation" },
-    { 0xfee0, 0xfeff, 32,  "PS/2 interface" },
-    { 0xff00, 0xff2f, 48,  "Embedded Controller" },
-    { 0xff30, 0xff7f, 80,  "General purpose wakeup event" },
-    { 0xff80, 0xff8f, 16,  "Reserved" },
-    { 0xff90, 0xffbf, 48,  "SMBus controller 0" },
+    { 0xfee0, 0xfeff, 32,  "PS2 : PS/2 interface" },
+    { 0xff00, 0xff2f, 48,  "EC : Embedded Controller" },
+    { 0xff30, 0xff7f, 80,  "GPWU : General purpose wakeup event" },
+    { 0xff80, 0xffbf, 64,  "SMBus : SMBus controller" },
     { 0xffc0, 0xffcf, 16,  "Reserved" },
-    { 0xffd0, 0xffff, 48,  "SMBus controller 1" }
+    { 0xffd0, 0xffff, 48,  "Reserved" }
 };
 
 void Disassembly::autoComment()
@@ -404,11 +407,30 @@ void Disassembly::autoComment()
 
     for(auto itInstruction = instructions.begin(); itInstruction != instructions.end(); itInstruction++) {
         if(itInstruction->second.getName() == "MOV DPTR, ") {
-            for(int i1 = 0; i1 < registerAreaCount; i1++) {
-                if(registerAreas[i1].contains(itInstruction->second.arg1)) {
-                    itInstruction->second.ac(std::string("Reg ") + registerAreas[i1].name);
-                    //std::cout << utils::Int_To_String_Hex(itInstruction->first) << " " << itInstruction->second.autocomment << std::endl;
+            int moduleIdx = get_KB930_ModuleIndex(itInstruction->second.arg1); 
+            if (-1 != moduleIdx){
+                int offset = itInstruction->second.arg1 -KB930_modules[moduleIdx].start_addr; 
+                itInstruction->second.ac(std::string("Reg ") + KB930_modules[moduleIdx].name;
+                switch(moduleIdx){
+                    case GPIO_E:
+                        itInstruction->second.ac(std::string("__") + GPIO_Reg[offset];
                     break;
+                    case KBC_E:
+                    break;
+                    case EC_E:
+                    break;
+                    default:
+                    break;
+                } 
+            }
+            else{
+                for(int i1 = 0; i1 < registerAreaCount; i1++) {
+                    if(registerAreas[i1].contains(itInstruction->second.arg1)) {
+                        
+                        itInstruction->second.ac(std::string("Reg ") + registerAreas[i1].name);
+                        //std::cout << utils::Int_To_String_Hex(itInstruction->first) << " " << itInstruction->second.autocomment << std::endl;
+                        break;
+                    }
                 }
             }
         }
