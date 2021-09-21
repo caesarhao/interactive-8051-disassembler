@@ -1,0 +1,8 @@
+Total : 128 kB
+OxFF : 0x001FA8 -> 0x003FFF; length : 8280
+PHJ00 : 0x004006
+KB930 : 0x004016
+OxFF : 0x00E9E0 -> 0x00FFFF; length : 5664
+0x00 : 0x0127A1 -> 0x013FFF; length : 6239
+0xFF : 0x01B8B3 -> 0x01FFFF; length : 18253
+
